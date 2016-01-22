@@ -3,7 +3,57 @@ var fields = require('../../fields.js');
 var config = require('../../config.js');
 
 log.info('Initializing transform tools ...');
-if (config.USE_CASE == config.USE_CASE_MHWIRTH) {
+
+if (config.USE_CASE == config.USE_CASE_NRG) {
+	log.info('Using CSI use case ...');
+
+	var betterName = fields.getBetterNames();
+	function sensorToStoreIdMap (name) {
+		if (!betterNames[name]) return name;
+		return betterNames[name];
+	};
+
+	// var tagToStoreIdMap = {
+		// '1000693': 'rpm'
+	// };
+	
+	var storeToSensorIdMap = {};
+
+	for (var key in sensorToStoreIdMap) {
+		storeToSensorIdMap[sensorToStoreIdMap(key)] = key;
+	}
+	
+	function getStoreId(sensorId) {
+		return sensorId;
+	}
+	
+	// function storeFromTag(tag) {
+		// return tagToStoreIdMap[tag];
+	// }
+	
+	module.exports = {
+		transform: function (val) {
+			if (log.trace())
+				log.trace('Transforming event: %s', JSON.stringify(val));
+			
+			var storeNm = sensorToStoreIdMap(val["sensorId"]); // val.sensorId; // TODO 
+			var timestamp = val["time"];
+			var value = val["value"];
+
+			return [
+			    {
+			    	store: storeNm,
+			    	timestamp: timestamp,
+			    	value: {
+			    		time_ms: timestamp,
+			    		time: utils.dateToQmDate(new Date(timestamp)),
+			    		value: value
+			    	}
+			    }
+			]
+		}
+	}
+} else if (config.USE_CASE == config.USE_CASE_MHWIRTH) {
 	log.info('Using MHWirth use case ...');
 	
 	var sensorToStoreIdMap = {

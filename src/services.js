@@ -1661,14 +1661,19 @@ function initServerApi() {
 					if (++imported % printInterval == 0 && log.trace())
 						log.trace('Imported %d values ...', imported);
 					
-					addRawMeasurement(instance);
+					try {
+						addRawMeasurement(instance);
+					}
+					catch (e) {
+						if (log.trace()) log.trace(e, 'Later measurment already exists.')
+					}
 				}
 				
 				resp.status(204);
 				resp.end();
 			} catch (e) {
 				log.error(e, 'Failed to process raw measurement!');
-				handleServerError(e, req, res);
+				handleServerError(e, req, resp);
 			}
 		});
 	}
@@ -2379,7 +2384,7 @@ function initServer(sessionStore, parseCookie) {
 	app.use(LOGIN_PATH + '/', bodyParser.json());
 	app.use(API_PATH + '/', bodyParser.urlencoded({ extended: false }));
 	app.use(API_PATH + '/', bodyParser.json());
-	app.use(DATA_PATH + '/', bodyParser.json());
+	app.use(DATA_PATH + '/', bodyParser.json({limit: '50mb'}));
 	
 	// when a session expires, redirect to index
 	app.use('/ui.html', function (req, res, next) {

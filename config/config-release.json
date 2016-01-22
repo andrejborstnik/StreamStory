@@ -34,11 +34,11 @@
 	},
 	"integration": {
 		"type": "broker",
-		"brokerUrl": "192.168.84.39",
+		"brokerUrl": "95.87.154.214",
 		"zookeperPort": 2181,
 		"producerPort": 8090
 	},
-	"useCase": "mhwirth",
+	"useCase": "nrg4cast",
 	"interpolation": "current",
 	"dataPath": "/root/StreamStory/db-review/"
 }
