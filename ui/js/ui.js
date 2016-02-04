@@ -564,7 +564,7 @@ function changeControlVal(stateId, ftrIdx, val) {
 			if (this.checked) {
 				$('#rng-time-probs').slider('enable');
 				$('#div-future-opts').removeClass('hidden');
-				fetchStateProbDist(0);
+				fetchStateProbDist(0.1);
 			} else {
 				$('#div-future-opts').addClass('hidden');
 				$('#rng-time-probs').slider('disable');

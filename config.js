@@ -29,7 +29,7 @@ var logStream = {
 };
 
 global.log = bunyan.createLogger({
-	name: 'StreamStory',
+	name: 'NRG4CAST',
 	stream: logformat(logStream),
 	level: config.log.logger.level
 });
@@ -149,7 +149,7 @@ log.info('Working directory: %s', process.cwd());
 log.info('Module path: %s', QM_MODULE_PATH);
 log.info('Mode: ' + config.qminer.mode);
 log.info('QMiner verbosity: %d', verbosity);
-log.info('StreamStory params: %s', JSON.stringify(exports.STREAM_STORY_PARAMS));
+log.info('NRG4CAST params: %s', JSON.stringify(exports.STREAM_STORY_PARAMS));
 log.info('Data path: %s', dataPath);
 log.info('Use-case: %s', config.useCase);
 if (exports.USE_BROKER)

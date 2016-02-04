@@ -531,7 +531,7 @@ exports.onCoefficient = function (cb) {
 
 exports.onValue = function (cb) {
 	opts.onValue = cb;
-	log.info('Registered StreamStory store callback ...');
+	log.info('Registered NRG4CAST store callback ...');
 }
 
 exports.setCalcCoeff = function (calc) {

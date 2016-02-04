@@ -465,7 +465,7 @@ exports.RealTimeModelStore = function (opts) {
 						return;
 					}
 					
-					log.info('Building StreamStory model ...');
+					log.info('Building NRG4CAST model ...');
 					updateProgress(username, false, 40, 'Building the model ...');
 					
 					// create the configuration

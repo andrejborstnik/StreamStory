@@ -1,7 +1,7 @@
 {
-  "name": "StreamStory",
+  "name": "NRG4CAST",
   "version": "0.1.0",
-  "description": "StreamStory",
+  "description": "NRG4CAST",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"

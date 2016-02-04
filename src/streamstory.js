@@ -39,7 +39,7 @@ exports.StreamStory = function (opts) {
 		}
 	}
 	else if (opts.fname != null) {
-		log.info('Loading StreamStory from:%s ', opts.fname);
+		log.info('Loading NRG4CAST from:%s ', opts.fname);
 		var fin = new qm.fs.FIn(opts.fname);
 		
 		mc = new analytics._StreamStory(fin);

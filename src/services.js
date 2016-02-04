@@ -235,6 +235,8 @@ function addRawMeasurement(val) {
 		counts[storeNm]++;
 		var prevTimestamp = storeLastTm[storeNm];
 		
+		if (log.trace()) log.trace("Tu sem.");
+		
 		if (totalCounts++ % config.RAW_PRINT_INTERVAL == 0 && log.debug())
 			log.debug('Time: %s, Counts: %s', new Date(timestamp).toString(), JSON.stringify(counts));
 		if (timestamp <= prevTimestamp)
@@ -245,8 +247,7 @@ function addRawMeasurement(val) {
 		var insertVal = transformed.value;
 		
 
-		if (log.trace())
-			log.trace('Inserting raw measurement %s', JSON.stringify(insertVal));
+		if (log.trace()) log.trace('Inserting raw measurement %s', JSON.stringify(insertVal));
 		
 		pipeline.insertRaw(storeNm, insertVal);
 		storeLastTm[storeNm] = timestamp;
@@ -256,11 +257,11 @@ function addRawMeasurement(val) {
 
 function initStreamStoryHandlers(model, enable) {
 	if (model == null) {
-		log.warn('StreamStory is NULL, cannot register callbacks ...');
+		log.warn('NRG4CAST is NULL, cannot register callbacks ...');
 		return;
 	}
 	
-	log.info('Registering StreamStory callbacks for model %s ...', model.getId());
+	log.info('Registering NRG4CAST callbacks for model %s ...', model.getId());
 	
 	if (enable) {
 		log.info('Registering state changed callback ...');
@@ -366,7 +367,7 @@ function initStreamStoryHandlers(model, enable) {
 			}
 		});
 	} else {
-		log.debug('Removing StreamStory handlers for model %s ...', model.getId());
+		log.debug('Removing NRG4CAST handlers for model %s ...', model.getId());
 		log.debug('Removing state changed callback ...');
 		model.onStateChanged(null);
 		log.debug('Removing anomaly callback ...');
@@ -634,7 +635,7 @@ function initLoginRestApi() {
 }
 
 function initStreamStoryRestApi() {
-	log.info('Initializing StreamStory REST services ...');
+	log.info('Initializing NRG4CAST REST services ...');
 	
 	{
 		log.info('Registering save service ...');
@@ -869,7 +870,7 @@ function initStreamStoryRestApi() {
 				res.send(model.getModel().probsAtTime(stateId, height, time));
 			} catch (e) {
 				log.error(e, 'Failed to query MHWirth multilevel visualization!');
-				res.status(500);	// internal server error
+				// res.status(500);	// internal server error
 			}
 			
 			res.end();
@@ -1514,7 +1515,7 @@ function initDataUploadApi() {
 						res.status(204);	// no content
 						res.end();
 					}
-				}, 30000);
+				}, 300000);
 				
 				modelStore.setProgressCallback(username, function (e, isFinished, progress, message) {
 					if (log.trace())
@@ -1653,6 +1654,7 @@ function initServerApi() {
 		
 		app.post(DATA_PATH + '/push', function (req, resp) {
 			var batch = req.body;
+			if (log.debug()) log.debug("Batch length: " + batch.length);
 			
 			try {
 				for (var i = 0; i < batch.length; i++) {
@@ -1916,10 +1918,10 @@ function initPipelineHandlers() {
 		if (log.trace())
 			log.trace('Inserting value into StreamStories ...');
 		
-		if (config.USE_CASE == config.USE_CASE_MHWIRTH && val.temp_ambient == null) {	// TODO remove this
-			log.warn('Not sending ambient temperature!');
-			throw new Error('Not sending ambient temperature!');
-		}
+		// if (config.USE_CASE == config.USE_CASE_NRG && val.temp_ambient == null) {	// TODO remove this
+			// log.warn('Not sending ambient temperature!');
+			// throw new Error('Not sending ambient temperature!');
+		// }
 		modelStore.updateModels(val);
 	});
 	
@@ -2380,11 +2382,11 @@ function initServer(sessionStore, parseCookie) {
 	app.use(parseCookie);
 	app.use(excludeDirs([DATA_PATH], sess));
 	// automatically parse body on the API path
-	app.use(LOGIN_PATH + '/', bodyParser.urlencoded({ extended: false }));
-	app.use(LOGIN_PATH + '/', bodyParser.json());
-	app.use(API_PATH + '/', bodyParser.urlencoded({ extended: false }));
-	app.use(API_PATH + '/', bodyParser.json());
-	app.use(DATA_PATH + '/', bodyParser.json({limit: '50mb'}));
+	app.use(LOGIN_PATH + '/', bodyParser.urlencoded({ extended: false, limit: '50Mb'} ));
+	app.use(LOGIN_PATH + '/', bodyParser.json({limit: '50Mb'}));
+	app.use(API_PATH + '/', bodyParser.urlencoded({ extended: false, limit: '50Mb' }));
+	app.use(API_PATH + '/', bodyParser.json({limit: '50Mb'}));
+	app.use(DATA_PATH + '/', bodyParser.json({limit: '50Mb'}));
 	
 	// when a session expires, redirect to index
 	app.use('/ui.html', function (req, res, next) {
@@ -2404,7 +2406,7 @@ function initServer(sessionStore, parseCookie) {
 	initConfigRestApi();
 	initDataUploadApi();
 	
-	app.use(excludeDirs(['/login', '/js', '/css', '/img', '/lib', '/popups'], excludeFiles(['index.html', 'login.html', 'register.html', 'resetpassword.html'], accessControl)));
+	app.use(excludeDirs(['/login', '/js', '/css', '/img', '/lib', '/popups', DATA_PATH], excludeFiles(['index.html', 'login.html', 'register.html', 'resetpassword.html'], accessControl)));
 	
 	app.get('/login.html', prepPage('login'));
 	app.get('/register.html', prepPage('register'));

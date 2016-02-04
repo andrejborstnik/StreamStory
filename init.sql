@@ -1,10 +1,10 @@
 -- create the user and database
-CREATE USER 'StreamStory'@'localhost' IDENTIFIED BY 'StreamStory';
-CREATE DATABASE StreamStory;
-ALTER DATABASE StreamStory CHARACTER SET utf8 COLLATE utf8_general_ci;
-GRANT ALL PRIVILEGES ON StreamStory.* TO 'StreamStory'@'localhost';
+CREATE USER 'NRG4CASTStream'@'localhost' IDENTIFIED BY 'NRG4CASTStream';
+CREATE DATABASE NRG4CASTStream;
+ALTER DATABASE NRG4CASTStream CHARACTER SET utf8 COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON NRG4CASTStream.* TO 'NRG4CASTStream'@'localhost';
 
-USE StreamStory;
+USE NRG4CASTStream;
 
 CREATE TABLE user (
 	email VARCHAR(100) PRIMARY KEY,

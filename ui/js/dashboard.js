@@ -647,14 +647,14 @@ function pingProgress(isRealTime) {
 			method: 'POST',
 			success: function (data, status, xhr) {
 				$('#div-model-details-btns').addClass('hidden');
-				showAlert($('#alert-holder'), $('#alert-wrapper-model-details'), 'alert-success', 'Details saved!', null, true);
+				// showAlert($('#alert-holder'), $('#alert-wrapper-model-details'), 'alert-success', 'Details saved!', null, true);
 			},
 			error: function (xhr, status, err) {
 				if (xhr.status == 400) {
 					var responseText = xhr.responseText;
-					showAlert($('#alert-holder'), $('#alert-wrapper-model-details'), 'alert-danger', responseText, null, false);
+					// showAlert($('#alert-holder'), $('#alert-wrapper-model-details'), 'alert-danger', responseText, null, false);
 				} else {
-					alert(xhr.responseText);
+					// alert(xhr.responseText);
 				}
 			}
 		});

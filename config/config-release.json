@@ -28,9 +28,9 @@
 	},
 	"database": {
 		"host": "localhost",
-		"user": "StreamStory",
-		"password": "StreamStory",
-		"database": "StreamStory"
+		"user": "NRG4CASTStream",
+		"password": "NRG4CASTStream",
+		"database": "NRG4CASTStream"
 	},
 	"integration": {
 		"type": "broker",

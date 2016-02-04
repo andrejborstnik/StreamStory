@@ -17,11 +17,11 @@ if (config.USE_CASE == config.USE_CASE_NRG) {
 		// '1000693': 'rpm'
 	// };
 	
-	var storeToSensorIdMap = {};
+	// var storeToSensorIdMap = {};
 
-	for (var key in sensorToStoreIdMap) {
-		storeToSensorIdMap[sensorToStoreIdMap(key)] = key;
-	}
+	// for (var key in sensorToStoreIdMap) {
+		// storeToSensorIdMap[sensorToStoreIdMap(key)] = key;
+	// }
 	
 	function getStoreId(sensorId) {
 		return sensorId;

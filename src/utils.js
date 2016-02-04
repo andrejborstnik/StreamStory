@@ -93,12 +93,12 @@ module.exports = {
 		var text = 'Dear ' + opts.email + '\n\n' +
 					'Your new password is: ' + opts.password + '\n\n' +
 					'Best,\n' +
-					'StreamStory team';
+					'NRG4CAST team';
 		
 		var mailOptions = {
-		    from: 'StreamStory <luka.stopar@ijs.si>', // sender address
+		    from: 'NRG4CAST <klemen.kenda@ijs.si>', // sender address
 		    to: opts.email, // list of receivers
-		    subject: 'StreamStory', // Subject line
+		    subject: 'NRG4CAST', // Subject line
 		    text: text, // plaintext body
 //		    html: '<b>Hello world ✔</b>' // html body
 		};
